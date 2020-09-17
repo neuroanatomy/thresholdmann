@@ -37,6 +37,11 @@ Thresholdmann complements the variety of existing brain segmentation tools, prov
 # Methods
 
 # Figures
+![Figure 1. Thresholdmann interface and workflow. Control points (blue dots) are added by clicking at the desired position in the viewer. This adds a slider to the right, which can be used to locally adapt the threshold. The figure describes the progressive addition of control points to create a mask of the brain for a  macaque from Prime-DE site "amu" [@Brochier_etal2019; @PrimeDE].\label{fig:reorient1}](https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig1.png)
+
+![Figure 2. Thresholdmann viewer. Threshold mask and corresponding threshold value. These volumes are updated in real time and can both be inspected interactively. The set of control points and the mask can be downloaded.\label{fig:reorient2}](https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig2.png)
+
+![Figure 3. Thresholdmann result. We downloaded the mask presented above based on the shown set of eight control points. The brain region was sufficiently disjoint from the rest of the head so that a mathematical morphology closing was enough to completely separate it. The figure shows stereotaxic planes and a surface reconstruction of the mask.\label{fig:reorient3}](https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig3.png)
 
 # Acknowledgements
 
