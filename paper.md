@@ -11,6 +11,9 @@ authors:
   - name: Katja Heuer   
     orcid: 0000-0002-7237-0196  
     affiliation: "1"
+  - name: Nicolas Traut   
+    orcid: 0000-0003-3277-6316  
+    affiliation: "1"
   - name: Roberto Toro  
     orcid: 0000-0002-6671-858X  
     affiliation: "1"  
