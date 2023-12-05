@@ -34,7 +34,7 @@ Brain extraction and segmentation are required for any downstream analysis of ne
 Thresholdmann complements the variety of existing brain segmentation tools, providing an easy interface to manually control the segmentation on a local scale across different brain imaging modalities and image contrast gradients. The masks produced by Thresholdmann can serve as a starting point for more detailed manual editing using tools such as BrainBox (https://brainbox.pasteur.fr) [@BrainBox] or ITK-SNAP (http://itksnap.org) [@itkSNAP]. This interactive approach is especially valuable for non-human brain imaging data, where automatic approaches often require extensive manual adjustment anyway [@PrimeDE; @PrimeRE; @PrimeDE2]. We have used Thresholdmann successfully to create initial brain masks for a variety of vertebrate brains – including many non-human primate datasets [@34primates; @cerebella] – as well as developmental data.
 
 # Methods
-The spatially-varying threshold is computed from a number of control points. Each control point has a position $\x_i$ and a threshold value $\v_i$.
+The spatially-varying threshold is computed from a number of control points. Each control point has a position $\x_i$ and a threshold value $\`v_i\`$.
 
 # Figures
 ![Figure 1. Thresholdmann interface and workflow. Control points (blue dots) are added by clicking at the desired position in the viewer. This adds a slider to the right, which can be used to locally adapt the threshold. The figure describes the progressive addition of control points to create a mask of the brain for a  macaque from Prime-DE site "amu" [@Brochier_etal2019; @PrimeDE].\label{fig:thresholdmann1}](https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig1.png)
