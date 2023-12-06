@@ -53,6 +53,6 @@ Thresholdmann was coded in JavaScript and runs as a GitHub Web page. Code style 
 ![Figure 3. Thresholdmann result. We downloaded the mask presented above based on the shown set of eight control points. The brain region was sufficiently disjoint from the rest of the head so that a mathematical morphology closing was enough to completely separate it. The figure shows stereotaxic planes and a surface reconstruction of the mask.\label{fig:thresholdmann3}](https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig3.png)
 
 # Acknowledgements
-We thank Demian Wassermann for discussions about radial basis functions.
+We thank Demian Wassermann for discussions about radial basis functions that inspired the first version of our tool.
 
 # References
