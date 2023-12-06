@@ -35,11 +35,11 @@ Thresholdmann complements the variety of existing brain segmentation tools, prov
 
 # Methods
 The spatially-varying threshold is computed from a number of control points. Each control point has a position $`x_i`$ and a threshold value $`v_i`$. At each point $`x`$ of the volume, the local threshold is computed as a weighted function of the control points. The weight associated to the i-th control point at position $`x`$ is given by:  
-$$w_i \left( x \right) = \dfrac1 {\left( x-x_i \right)^2+\epsilon}$$,  
+$$w_i \left( x \right) = \dfrac1 {\left( x-x_i \right)^2+\epsilon} ,$$  
 where $`\epsilon`$ is a small number used to prevent a division by 0 at the exact position of control points. The value of the threshold at position $`x`$ is the obtained as:  
-$$v \left( x \right) = \dfrac{ \sum_i^n v_i w_i \left( x \right)} {W \left( x \right)}$$,  
+$$v \left( x \right) = \dfrac{ \sum\limits_i^n v_i w_i \left( x \right)} {W \left( x \right)} ,$$  
 where $`W(x)`$ is the sum of all weights, given by:  
-$$W \left( x \right) = \sum_i^n w_i \left( x \right) $$.  
+$$W \left( x \right) = \sum_i^n w_i \left( x \right) .$$  
 
 # Figures
 ![Figure 1. Thresholdmann interface and workflow. Control points (blue dots) are added by clicking at the desired position in the viewer. This adds a slider to the right, which can be used to locally adapt the threshold. The figure describes the progressive addition of control points to create a mask of the brain for a  macaque from Prime-DE site "amu" [@Brochier_etal2019; @PrimeDE].\label{fig:thresholdmann1}](https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig1.png)
