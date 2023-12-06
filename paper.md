@@ -43,7 +43,7 @@ $$W \left( x \right) = \sum_i^n w_i \left( x \right) .$$
 
 Additionally, we add a “background” threshold value which makes the action of the control points localised. The background value is independent of the distance and is given a small constant weight. In that manner, positions far from all control points get the background threshold value.  
 
-Thresholdmann was coded in JavaScript and runs as a GitHub Web page. Code style was verified using eslint (https://eslint.org). Unit tests and end-to-end tests were implemented using mocha.js (https://mochajs.org) and puppeteer (https://pptr.dev). Modifications in the code are continuously tested using CircleCI (https://circleci.com).
+Thresholdmann was coded in JavaScript and runs as a GitHub Web page. Code style was verified using ESLint (https://eslint.org). Unit tests and end-to-end tests were implemented using Mocha (https://mochajs.org) and Puppeteer (https://pptr.dev). Modifications in the code are continuously tested using CircleCI (https://circleci.com).
 
 # Figures
 ![Figure 1. Thresholdmann interface and workflow. Control points (blue dots) are added by clicking at the desired position in the viewer. This adds a slider to the right, which can be used to locally adapt the threshold. The figure describes the progressive addition of control points to create a mask of the brain for a  macaque from Prime-DE site "amu" [@Brochier_etal2019; @PrimeDE].\label{fig:thresholdmann1}](https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig1.png)
