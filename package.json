@@ -4,6 +4,7 @@
   "description": "A Web tool for interactively creating adaptive thresholds to segment nifti images.",
   "main": "thresholdmann.js",
   "scripts": {
+    "start": "http-server .",
     "test": "mocha --exit"
   },
   "repository": {
@@ -16,7 +17,7 @@
     "threshold",
     "Web",
     "tool",
-    "radial basis functions"
+    "interactive"
   ],
   "author": "Roberto Toro <rto@braincatalogue.org> (https://neuroanatomy.github.io)",
   "license": "ISC",
@@ -25,6 +26,11 @@
   },
   "homepage": "https://github.com/neuroanatomy/thresholdmann#readme",
   "devDependencies": {
-    "puppeteer": "^5.2.1"
+    "mocha": "^10.2.0",
+    "puppeteer": "^20.9.0"
+  },
+  "dependencies": {
+    "eslint-config-naat": "github:neuroanatomy/eslint-config-naat",
+    "http-server": "^14.1.1"
   }
 }

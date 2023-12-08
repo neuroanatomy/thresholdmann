@@ -2,15 +2,13 @@ version : 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:13-browsers
+      - image: circleci/node:16-browsers
     steps:
       - checkout
       - run: npm install
-      - run: npm install mocha
-      - run: npm i http-server
       - run:
           name: Run server in background
-          command: './node_modules/http-server/bin/http-server'
+          command: 'npm start'
           background: true
       - run:
           name: Run tests
