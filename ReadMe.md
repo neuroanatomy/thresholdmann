@@ -18,5 +18,5 @@ Brain extraction and segmentation are required for any downstream analysis of ne
 
 Thresholdmann complements the variety of existing brain segmentation tools, providing an easy interface to manually control the segmentation on a local scale. The masks produced by Thresholdmann can serve as a starting point for more detailed manual editing using tools such as [BrainBox](https://brainbox.pasteur.fr)  or [ITK Snap](http://www.itksnap.org). This interactive approach is especially valuable for non-human brain imaging data, where automatic approaches often require extensive manual adjustment anyway. We have used Thresholdmann successfully to create initial brain masks for a variety of vertebrate brains – including many non-human primate datasets (Heuer et al. 2019) – as well as developmental data.
 
-### Doc
+### Documentation
 A description of a typical workflow can be found in the [doc](https://neuroanatomy.github.io/thresholdmann/doc.html).
