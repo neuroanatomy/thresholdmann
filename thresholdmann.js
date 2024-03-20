@@ -420,7 +420,9 @@ const controlPointMoveHandler = (ev) => {
   const cpid = globals.selectedControlPoint;
   const cpidIndex = cpid.replace('cp', '') | 0;
   const {mv} = globals;
-  const [i, j, k] = canvas2voxel(ev);
+  const {dim} = mv.dimensions.voxel;
+  const [i, j, k] = canvas2voxel(ev)
+    .map((index, axis) => Math.max(0, Math.min(index, dim[axis] - 1))); // Ensure each value is within bounds
 
   globals.points[cpidIndex][0] = i;
   globals.points[cpidIndex][1] = j;
@@ -759,7 +761,7 @@ window.initWithPath = async (path) => {
  * @returns {void}
  */
 window.loadDemoData = () => {
-  const url = "img/bear_uchar.nii.gz";
+  const url = 'img/bear_uchar.nii.gz';
   window.initWithPath(url);
 };
 
