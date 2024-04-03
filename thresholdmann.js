@@ -186,7 +186,7 @@ const saveNifti = (data) => {
 };
 
 const thresholdWorker = (callback) => {
-  const worker = new Worker('thresholdmann-worker.js');
+  const worker = new Worker(new URL('./thresholdmann-worker.js', import.meta.url));
   worker.onmessage = function (e) {
     const {msg} = e.data;
     switch (msg) {

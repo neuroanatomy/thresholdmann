@@ -9,7 +9,7 @@ module.exports = {
   // Where webpack looks to start building the bundle
   entry: {
     index: paths.src + '/index.js',
-    // render3D: paths.src + '/render3d/index.js'
+    render3D: paths.src + '/render3D/index.js'
   },
 
   // Where webpack outputs the assets and bundles
@@ -18,7 +18,6 @@ module.exports = {
     filename: '[name].bundle.js',
     publicPath: '/',
     clean: true,
-    // module: true
   },
 
   // Customize the webpack build process
@@ -44,7 +43,14 @@ module.exports = {
       template: paths.src + '/index.html', // template file
       filename: 'index.html', // output file
       scriptLoading: "blocking",
-      inject: "head"
+      inject: "head",
+      chunks: ['index']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'render3D',
+      template: paths.src + '/render3D/index.html',
+      filename: 'render3D/index.html',
+      chunks: ['render3D'],
     }),
 
     new webpack.ProvidePlugin({
@@ -73,8 +79,4 @@ module.exports = {
     modules: [paths.src, 'node_modules'],
     extensions: ['.js', '.jsx', '.json'],
   },
-
-  // experiments: {
-  //   outputModule: true,
-  // },
 }
