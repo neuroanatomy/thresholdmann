@@ -39,7 +39,7 @@ const interpolation = (pos) => {
       (pos[0] - points[k][0]) ** 2 +
       (pos[1] - points[k][1]) ** 2 +
       (pos[2] - points[k][2]) ** 2;
-    const w = 1 / (d + 0.001);
+    const w = 1 / (d + 0.001); // adding a distance of 0.001 times voxel size to avoid division by 0 at the exact position of control points
     val += w * values[k];
     totalw += w;
   }
