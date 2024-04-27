@@ -72,7 +72,7 @@ const displayControlPointsTable = () => {
     <input type="range" step="any" min=0 max=255 value=${values[ind]} oninput="changeThreshold(event)"/>
   </td>
   <td class="text-val">
-    <input type="text" class="value" min=0 max=255 value="${values[ind].toFixed(0)}" onchange="inputThreshold(this)"/>
+    <input type="number" class="value" min=0 max=255 value="${values[ind].toFixed(0)}" onchange="inputThreshold(this)"/>
   </td>
 </tr>
 `;
@@ -368,7 +368,7 @@ window.changeThreshold = (ev) => {
   const tr = el.closest('tr');
   const data = tr.dataset.ijk;
 
-  tr.querySelector('input[type=text]').value = val.toFixed(0);
+  tr.querySelector('input[type=number]').value = val.toFixed(0);
 
   let i;
   for (i = globals.points.length - 1; i >= 0; i--) {
