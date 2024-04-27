@@ -510,7 +510,7 @@ const getPoints = (points) => {
     return (newRow.some(isNaN))?NaN:newRow;
   });
 
-  return (newPoints.some(isNaN))?[]:newPoints;
+  return (newPoints.some((item) => !Array.isArray(item)))?[]:newPoints;
 };
 
 const getValues = (values) => {
