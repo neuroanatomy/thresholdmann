@@ -153,8 +153,17 @@
         </p>
         <img style="max-width:700px;padding-top:30px;padding-bottom:3px;padding-left:25px;padding-right:25px;" src="https://raw.githubusercontent.com/neuroanatomy/thresholdmann/master/img/thresholdmann_fig4_dark.png" alt=""/>
         <p style="padding-left:26px;padding-right:26px;font-size:12px;text-indent: 0rem;">
-          <b>Usage example: Final mask.</b> Download the mask created based on your set of control points. Make sure that the brain region is sufficiently disjoint from the rest of the head so that a mathematical morphology closing will be enough to completely separate it. This will give you a mask like shown in this image with its reconstructed surface as an example.<br /><br /><br />
+          <b>Usage example: Final mask.</b> Download the mask created based on your set of control points. Make sure that the brain region is sufficiently disjoint from the rest of the head so that a mathematical morphology closing will be enough to completely separate it. This will give you a mask like shown in this image with its reconstructed surface as an example.<br />
         </p>
+
+        <h2 id="performance" style="padding-top:20px;padding-bottom:20px;">Notes on performance</h2>
+        <p>
+          <b>Data file size.</b> Thresholdmann can load, display and segment very large MRI files. We tested as an extreme case with the 250µm 1.64GB ultra-high resolution human brain <i>in vivo</i> dataset from <a href="https://doi.org/10.5061/dryad.38s74" style="color:white;" target="_blank">Lüsebrink et al. (2018)</a>. Loading took about 30 seconds until the data was displayed. The interface was perfectly fluid when browsing the slices, adding as many control points as to have a long scrolling list of points, and switching between view planes. Saving the control points was instantaneous, and saving the mask took a bit over a minute. If the browser asks to exit or wait, simply select wait and you should have no problem to save the mask. In general, we recommend to save control points before attempting to save the mask. 🤓 The 3D render took a bit more than half a minute and then was fluidly interactive and zoomable as usual. However, if the data is very large and at the same time noisy, so that the segmentation will have many flying dots, this will result in lots of triangles, and a 3D render on the fly will not be possible.<br /><br /><br />  
+        </p>
+        <!-- <p>
+          <b>Interpolation: The ε value in the code.</b> ε adds a distance of 0.001 times voxel size to prevent a division by 0 at the exact position of control points. While it does change the exact space at which a control point faints out, in practice, the amount of voxels in an MRI even if it were smaller or bigger, is usually about 300 and the behaviour of the tool doesn't perceivably change. We tested with high resolution data of small brains (for example a mouse: dim: 420 x 548 x 282, pixdim: 0.03 x 0.03 x 0.03) and also with a big dolphin brain (dim: 461 x 424 x 304, pixdim: 0.30 x 0.30 x 0.30). If you'd like to change the behaviour of the control points, you could play with this value which is set in <a href="https://github.com/neuroanatomy/thresholdmann/blob/25090ab07c7e51b4122f1ffb0997e8720d6b1daf/thresholdmann-worker.js#L29" style="color:white;" target="_blank">thresholdmann-worker.js</a> and <a href="https://github.com/neuroanatomy/thresholdmann/blob/25090ab07c7e51b4122f1ffb0997e8720d6b1daf/thresholdmann.js#L42" style="color:white;" target="_blank">thresholdmann.js</a>.
+          <br /><br /><br />
+        </p> -->
 
       </div>
 

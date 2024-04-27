@@ -39,7 +39,7 @@ const interpolation = (pos) => {
       (pos[0] - points[k][0]) ** 2 +
       (pos[1] - points[k][1]) ** 2 +
       (pos[2] - points[k][2]) ** 2;
-    const w = 1 / (d + 0.001);
+    const w = 1 / (d + 0.001); // adding a distance of 0.001 times voxel size to avoid division by 0 at the exact position of control points
     val += w * values[k];
     totalw += w;
   }
@@ -72,7 +72,7 @@ const displayControlPointsTable = () => {
     <input type="range" step="any" min=0 max=255 value=${values[ind]} oninput="changeThreshold(event)"/>
   </td>
   <td class="text-val">
-    <input type="text" class="value" min=0 max=255 value="${values[ind].toFixed(0)}" onchange="inputThreshold(this)"/>
+    <input type="number" class="value" min=0 max=255 value="${values[ind].toFixed(0)}" onchange="inputThreshold(this)"/>
   </td>
 </tr>
 `;
@@ -131,7 +131,6 @@ const voxel2canvas = (point) => {
   const height = H * width / W;
   const Hlarge = H * heightLarge / height;
   const offset = (Hlarge - H) / 2;
-  // eslint-disable-next-line new-cap
   const [i, j, k] = point;
   let slice, x, y;
   switch (plane) {
@@ -269,7 +268,6 @@ const threshold = () => {
       s = slice2volume(plane, x, y, slice, H);
       ind = y * width + x;
       _setPixelFromValue(
-        // eslint-disable-next-line new-cap
         px, ind, interpolate(/*mv.S2IJK(s)*/s), selectedOverlay);
     }
   }
@@ -318,8 +316,7 @@ const selectControlPoint = (cpid) => {
  * @param {HTMLElement} trSelected - the row element
  * @returns {void}
 */
-// eslint-disable-next-line no-unused-vars
-const selectRow = (trSelected) => {
+window.selectRow = (trSelected) => {
   // select the table row
   document.querySelectorAll('tr.selected').forEach((tr) => {
     tr.classList.remove('selected');
@@ -359,11 +356,10 @@ const selectRow = (trSelected) => {
 
 /** Handle changes in threshold triggered by the sliders
  * in the control points table.
- * @param {HTMLElement} ob - the slider element
+ * @param {HTMLElement} ev - the slider element
  * @returns {void}
  */
-// eslint-disable-next-line no-unused-vars
-const changeThreshold = (ev) => {
+window.changeThreshold = (ev) => {
   ev.preventDefault();
 
   const el = ev.target;
@@ -372,7 +368,7 @@ const changeThreshold = (ev) => {
   const tr = el.closest('tr');
   const data = tr.dataset.ijk;
 
-  tr.querySelector('input[type=text]').value = val.toFixed(0);
+  tr.querySelector('input[type=number]').value = val.toFixed(0);
 
   let i;
   for (i = globals.points.length - 1; i >= 0; i--) {
@@ -391,8 +387,7 @@ const changeThreshold = (ev) => {
   }
 };
 
-// eslint-disable-next-line no-unused-vars
-const inputThreshold = (ob) => {
+window.inputThreshold = (ob) => {
   const {mv} = globals;
   const val = parseFloat(ob.value);
   const tr = ob.closest('tr');
@@ -425,7 +420,9 @@ const controlPointMoveHandler = (ev) => {
   const cpid = globals.selectedControlPoint;
   const cpidIndex = cpid.replace('cp', '') | 0;
   const {mv} = globals;
-  const [i, j, k] = canvas2voxel(ev);
+  const {dim} = mv.dimensions.voxel;
+  const [i, j, k] = canvas2voxel(ev)
+    .map((index, axis) => Math.max(0, Math.min(index, dim[axis] - 1))); // Ensure each value is within bounds
 
   globals.points[cpidIndex][0] = i;
   globals.points[cpidIndex][1] = j;
@@ -493,36 +490,6 @@ const saveMask = () => {
   thresholdJob();
 };
 
-/** Save the selection mask produced by the
- * threshold, but in the main thread.
- * @deprecated
- * @returns {void}
- */
-// eslint-disable-next-line no-unused-vars
-const saveMaskOLD = () => {
-  const {mv, interpolate} = globals;
-  const [dim] = mv.mri;
-  const data = new Float32Array(dim[0] * dim[1] * dim[2]);
-  let val;
-  let i, j, k;
-  let ijk;
-  for (i = 0; i < dim[0]; i++) {
-    for (j = 0; j < dim[1]; j++) {
-      for (k = 0; k < dim[2]; k++) {
-        ijk = k * dim[1] * dim[0] + j * dim[0] + i;
-        val = interpolate([i, j, k]) * mv.maxValue / 255;
-
-        if (mv.mri.data[ijk] <= val) {
-          data[ijk] = 0;
-        } else {
-          data[ijk] = 1;
-        }
-      }
-    }
-  }
-  saveNifti(data);
-};
-
 const saveControlPoints = () => {
   const a = document.createElement('a');
   const {points, values} = globals;
@@ -534,6 +501,22 @@ const saveControlPoints = () => {
     document.body.appendChild(a);
     a.click();
   }
+};
+
+const getPoints = (points) => {
+  const newPoints = points.map((row) => {
+    const newRow = row.map(Number);
+
+    return (newRow.some(isNaN))?NaN:newRow;
+  });
+
+  return (newPoints.some((item) => !Array.isArray(item)))?[]:newPoints;
+};
+
+const getValues = (values) => {
+  const newValues = values.map(Number);
+
+  return (newValues.some(isNaN))?[]:newValues;
 };
 
 /** Load control points from a text file.
@@ -550,8 +533,17 @@ const loadControlPoints = () => {
     reader.onload = (ev) => {
       const str = ev.target.result;
       const ob = JSON.parse(str);
-      globals.points = ob.points;
-      globals.values = ob.values;
+
+      const points = getPoints(ob.points);
+      const values = getValues(ob.values);
+      if (points.length === 0 || values.length === 0) {
+        alert('Invalid control points file');
+
+        return;
+      }
+
+      globals.points = points;
+      globals.values = values;
       displayControlPointsTable();
       globals.mv.draw();
     };
@@ -626,22 +618,22 @@ const initKeyboardShortcuts = () => {
     case 's':
       globals.selectedTool = 'Select';
       document.querySelector('#tools').querySelector('.mui-pressed').classList.remove('mui-pressed');
-      document.querySelector('#tools').querySelector('[title="Select"').classList.add('mui-pressed');
+      document.querySelector('#tools').querySelector('[title="Select"]').classList.add('mui-pressed');
       break;
     case 'a':
       globals.selectedTool = 'Add';
       document.querySelector('#tools').querySelector('.mui-pressed').classList.remove('mui-pressed');
-      document.querySelector('#tools').querySelector('[title="Add"').classList.add('mui-pressed');
+      document.querySelector('#tools').querySelector('[title="Add"]').classList.add('mui-pressed');
       break;
     case 'r':
       globals.selectedTool = 'Remove';
       document.querySelector('#tools').querySelector('.mui-pressed').classList.remove('mui-pressed');
-      document.querySelector('#tools').querySelector('[title="Remove"').classList.add('mui-pressed');
+      document.querySelector('#tools').querySelector('[title="Remove"]').classList.add('mui-pressed');
       break;
     case 'm':
       globals.selectedTool = 'Move';
       document.querySelector('#tools').querySelector('.mui-pressed').classList.remove('mui-pressed');
-      document.querySelector('#tools').querySelector('[title="Move"').classList.add('mui-pressed');
+      document.querySelector('#tools').querySelector('[title="Move"]').classList.add('mui-pressed');
       break;
     }
   });
@@ -765,8 +757,7 @@ window.init = async (file) => {
  * the HTML page.
  * @returns {void}
  */
-// eslint-disable-next-line no-unused-vars
-const loadNifti = () => {
+window.loadNifti = () => {
   const input = document.createElement('input');
   input.type = 'file';
   input.onchange = function () {
@@ -783,11 +774,20 @@ const loadNifti = () => {
  * @param {string} path - the path to the Nifti file
  * @returns {void}
  */
-// eslint-disable-next-line no-unused-vars
 window.initWithPath = async (path) => {
   _newMRIViewer({path});
   await _display();
   initUI();
+};
+
+/** Load nifti data from a URL.
+ * This function is called from
+ * the HTML page.
+ * @returns {void}
+ */
+window.loadDemoData = () => {
+  const url = 'img/bear_uchar.nii.gz';
+  window.initWithPath(url);
 };
 
 /** Adjust transparency of the thresholding mask. This
@@ -795,24 +795,10 @@ window.initWithPath = async (path) => {
  * @param {Event} ev - the event
  * @returns {void}
  */
-// eslint-disable-next-line no-unused-vars
-const changeAlpha = (ev) => {
+window.changeAlpha = (ev) => {
   const newAlpha = Number(ev.target.value) / 100;
   globals.alpha = newAlpha;
   globals.mv.draw();
-};
-
-/** Adjust the brightness of the brain MRI. This
- * function is called from the HTML page.
- * @param {Event} ev - the event
- * @returns {void}
- */
-// eslint-disable-next-line no-unused-vars
-const changeBrightness = (ev) => {
-  const {brightness} = globals;
-  const contrast = Number(ev.target.value) / 100;
-  globals.contrast = contrast;
-  document.querySelector('canvas.viewer').style.filter = `brightness(${brightness}) contrast(${contrast})`;
 };
 
 /** Adjust the contrast of the brain MRI. This
@@ -820,8 +806,19 @@ const changeBrightness = (ev) => {
  * @param {Event} ev - the event
  * @returns {void}
  */
-// eslint-disable-next-line no-unused-vars
-const changeContrast = (ev) => {
+window.changeContrast = (ev) => {
+  const {brightness} = globals;
+  const contrast = Number(ev.target.value) / 100;
+  globals.contrast = contrast;
+  document.querySelector('canvas.viewer').style.filter = `brightness(${brightness}) contrast(${contrast})`;
+};
+
+/** Adjust the brightness of the brain MRI. This
+ * function is called from the HTML page.
+ * @param {Event} ev - the event
+ * @returns {void}
+ */
+window.changeBrightness = (ev) => {
   const brightness = Number(ev.target.value) / 100;
   const {contrast} = globals;
   globals.brightness = brightness;

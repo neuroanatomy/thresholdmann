@@ -5,7 +5,8 @@
   "main": "thresholdmann.js",
   "scripts": {
     "start": "http-server .",
-    "test": "mocha --exit"
+    "test": "npm run install:browsers; mocha --require fixtures.mjs --exit",
+    "install:browsers": "npx playwright install"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,8 @@
   },
   "homepage": "https://github.com/neuroanatomy/thresholdmann#readme",
   "devDependencies": {
-    "mocha": "^10.2.0",
-    "puppeteer": "^20.9.0"
+    "@playwright/test": "^1.41.2",
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "eslint-config-naat": "github:neuroanatomy/eslint-config-naat",

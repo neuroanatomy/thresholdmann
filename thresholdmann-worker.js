@@ -1,19 +1,3 @@
-// const interpolation = (pos, points, values) => {
-//   let val = 0;
-//   let totalw = 0;
-//   for (let k=0; k<points.length; k++) {
-//     const d =
-//       (pos[0] - points[k][0]) ** 2 +
-//       (pos[1] - points[k][1]) ** 2 +
-//       (pos[2] - points[k][2]) ** 2;
-//     const w = 1 / (d + 0.001);
-//     val += w * values[k];
-//     totalw += w;
-//   }
-
-//   return val / totalw;
-// };
-
 const interpolation = (pos, points, values) => {
   const backgroundValue = 255;
   const wBackground = 0.00001;
@@ -26,7 +10,7 @@ const interpolation = (pos, points, values) => {
       (pos[0] - points[k][0]) ** 2 +
       (pos[1] - points[k][1]) ** 2 +
       (pos[2] - points[k][2]) ** 2;
-    const w = 1 / (d + 0.001);
+    const w = 1 / (d + 0.001); // adding a distance of 0.001 times voxel size to avoid division by 0 at the exact position of control points
     val += w * values[k];
     totalw += w;
   }

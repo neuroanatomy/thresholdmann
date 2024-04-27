@@ -8,6 +8,9 @@
   --header-height: 60px;
   --cpoint-radius: 0.5rem;
   --cpoint-radius-hover: 0.75rem;
+  --cpoint-border-style: solid;
+  --cpoint-border-width: 1px;
+  --cpoint-border-color: white;
 }
 
 html, body {
@@ -33,12 +36,19 @@ html, body {
   flex-direction: column;
   justify-content: flex-start;
 }
+#buttons {
+  user-select: none;
+}
 #info {
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: var(--normal-font-size);
   font-weight: 200;
   line-height: 1.5;
+  user-select: text;
+}
+#control {
+  user-select: none;
 }
 .cpoint {
   position: absolute;
@@ -48,6 +58,9 @@ html, body {
   background: #146d84;
   border-radius: var(--cpoint-radius);
   transform: translate(-50%,-50%);
+  border-style: var(--cpoint-border-style);
+  border-width: var(--cpoint-border-width);
+  border-color: var(--cpoint-border-color);
 }
 .cpoint:hover {
   width: var(--cpoint-radius-hover);
