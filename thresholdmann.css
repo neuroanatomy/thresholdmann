@@ -36,12 +36,19 @@ html, body {
   flex-direction: column;
   justify-content: flex-start;
 }
+#buttons {
+  user-select: none;
+}
 #info {
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: var(--normal-font-size);
   font-weight: 200;
   line-height: 1.5;
+  user-select: text;
+}
+#control {
+  user-select: none;
 }
 .cpoint {
   position: absolute;
