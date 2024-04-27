@@ -503,6 +503,22 @@ const saveControlPoints = () => {
   }
 };
 
+const getPoints = (points) => {
+  const newPoints = points.map((row) => {
+    const newRow = row.map(Number);
+
+    return (newRow.some(isNaN))?NaN:newRow;
+  });
+
+  return (newPoints.some(isNaN))?[]:newPoints;
+};
+
+const getValues = (values) => {
+  const newValues = values.map(Number);
+
+  return (newValues.some(isNaN))?[]:newValues;
+};
+
 /** Load control points from a text file.
  * The control point positions and values are stored
  * in `globals`.
@@ -517,8 +533,17 @@ const loadControlPoints = () => {
     reader.onload = (ev) => {
       const str = ev.target.result;
       const ob = JSON.parse(str);
-      globals.points = ob.points;
-      globals.values = ob.values;
+
+      const points = getPoints(ob.points);
+      const values = getValues(ob.values);
+      if (points.length === 0 || values.length === 0) {
+        alert('Invalid control points file');
+
+        return;
+      }
+
+      globals.points = points;
+      globals.values = values;
       displayControlPointsTable();
       globals.mv.draw();
     };
