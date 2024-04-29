@@ -35,9 +35,9 @@ Thresholdmann complements the variety of existing brain segmentation tools, prov
 
 # Methods
 The spatially-varying threshold is computed from a number of control points. Each control point has a position $x_i$ and a threshold value $v_i$ that can be adjusted interactively. At each point $x$ of the volume, the local threshold is computed as a weighted function of the control points. The weight associated to the $i$-th control point at position $x$ is given by:  
-$$w_i \left( x \right) = \dfrac1 {\left( x-x_i \right)^2+\epsilon} ,$$  
+$$w_i \left( x \right) = \frac 1 {\left( x-x_i \right)^2+\epsilon} ,$$  
 where $\epsilon$ is a small number used to prevent a division by 0 at the exact position of control points. The value of the threshold at position $x$ is the obtained as:  
-$$v \left( x \right) = \dfrac{ \sum\limits_i^n v_i w_i \left( x \right)} {W \left( x \right)} ,$$  
+$$v \left( x \right) = \frac{ \sum\limits_i^n v_i w_i \left( x \right)} {W \left( x \right)} ,$$  
 where $W(x)$ is the sum of all weights, given by:  
 $$W \left( x \right) = \sum_i^n w_i \left( x \right) .$$  
 
