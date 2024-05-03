@@ -1,0 +1,40 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Heuer
+  given-names: Katja
+  orcid: "https://orcid.org/0000-0002-7237-0196"
+- family-names: Traut
+  given-names: Nicolas
+  orcid: "https://orcid.org/0000-0003-3277-6316"
+- family-names: Toro
+  given-names: Roberto
+  orcid: "https://orcid.org/0000-0002-6671-858X"
+doi: 10.5281/zenodo.11080336
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Heuer
+    given-names: Katja
+    orcid: "https://orcid.org/0000-0002-7237-0196"
+  - family-names: Traut
+    given-names: Nicolas
+    orcid: "https://orcid.org/0000-0003-3277-6316"
+  - family-names: Toro
+    given-names: Roberto
+    orcid: "https://orcid.org/0000-0002-6671-858X"
+  date-published: 2024-05-03
+  doi: 10.21105/joss.06336
+  issn: 2475-9066
+  issue: 97
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 6336
+  title: "Thresholdmann: A Web tool for interactively creating adaptive
+    thresholds to segment MRI data."
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.06336"
+  volume: 9
+title: "Thresholdmann: A Web tool for interactively creating adaptive
+  thresholds to segment MRI data."
