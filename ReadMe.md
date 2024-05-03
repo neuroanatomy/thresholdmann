@@ -5,7 +5,7 @@ A Web tool for interactively creating adaptive thresholds to segment MRI data.
 Katja Heuer, Nicolas Traut & Roberto Toro, November 2023
 
 [![CircleCI](https://circleci.com/gh/neuroanatomy/thresholdmann.svg?style=shield)](https://circleci.com/gh/neuroanatomy/thresholdmann)
-[![DOI](https://zenodo.org/badge/135712332.svg)](https://zenodo.org/doi/10.5281/zenodo.11080336)  
+[![DOI](https://zenodo.org/badge/135712332.svg)](https://zenodo.org/doi/10.5281/zenodo.11080336)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.06336/status.svg)](https://doi.org/10.21105/joss.06336)  
 
 
