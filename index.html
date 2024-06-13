@@ -186,7 +186,7 @@
           <div id="control" style="flex:1; overflow: scroll">
             <table id="control-table">
               <tbody>
-              </tbody>      
+              </tbody>
             </table>
           </div>
         </div>
@@ -197,49 +197,54 @@
       Made with &nbsp; 🤍 &nbsp; Katja Heuer, Nicolas Traut & and Roberto Toro (2024). Thresholdmann: A Web tool for interactively creating adaptive thresholds to segment MRI data. Journal of Open Source Software, 9(97), 6336. <a href="https://joss.theoj.org/papers/10.21105/joss.06336" target="_blank" style="color:white; border-bottom: thin dotted white;text-decoration:none;">https://doi.org/10.21105/joss.06336.</a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.1.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/r03ert0/mriviewerjs@v0.1.8/mriviewer.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/r03ert0/muijs/mui.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/r03ert0/muijs/mui.css" />
-
-    <link rel="stylesheet" type="text/css" href="thresholdmann.css" />
-    <script src="thresholdmann.js"></script>
 
     <script>
-      let file = false;
-      for (const event of ["drag", "dragstart", "dragend", "dragover", "dragenter", "dragleave", "drop"]) {
-        document.querySelector("#upload-box").addEventListener(event, function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        });
-      }
-      for (const event of ["dragover", "dragenter"]) {
-        document.querySelector("#upload-box").addEventListener(event, function(e) {
-          document.querySelector("#upload-box").classList.add("is-dragover");
-        });
-      }
-      for (const event of ["dragleave", "dragend", "drop"]) {
-        document.querySelector("#upload-box").addEventListener(event, function(e) {
-          document.querySelector("#upload-box").classList.remove("is-dragover");
-        });
-      }
-      document.querySelector("#upload-box").addEventListener("drop", function(e) {
-        file = e.dataTransfer.files;
-        if (document.querySelector("#upload-box").classList.contains("is-uploading")) {
-          return false;
-        }
-        document.querySelector("#upload-box").classList.add("is-uploading");
-        document.querySelector("#upload-box").classList.remove("is-error");
-        e.preventDefault();
-        if (file) {
-          console.log(file[0]);
-          init(file[0]);
-        }
-      });
 
-      MUI.push(document.querySelector('#loadNifti'), loadNifti);
-      MUI.push(document.querySelector('#loadDemoData'), loadDemoData);
+      window.addEventListener('load', () => {
+        let file = false;
+        for (const event of [
+          "drag",
+          "dragstart",
+          "dragend",
+          "dragover",
+          "dragenter",
+          "dragleave",
+          "drop"]) {
+          document.querySelector("#upload-box").addEventListener(event, function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+          });
+        }
+        for (const event of ["dragover", "dragenter"]) {
+          document.querySelector("#upload-box").addEventListener(event, function(e) {
+            document.querySelector("#upload-box").classList.add("is-dragover");
+          });
+        }
+        for (const event of ["dragleave", "dragend", "drop"]) {
+          document.querySelector("#upload-box").addEventListener(event, function(e) {
+            document.querySelector("#upload-box").classList.remove("is-dragover");
+          });
+        }
+        document.querySelector("#upload-box").addEventListener("drop", function(e) {
+          file = e.dataTransfer.files;
+          if (document.querySelector("#upload-box").
+                  classList.
+                  contains("is-uploading")) {
+            return false;
+          }
+          document.querySelector("#upload-box").classList.add("is-uploading");
+          document.querySelector("#upload-box").classList.remove("is-error");
+          e.preventDefault();
+          if (file) {
+            console.log(file[0]);
+            init(file[0]);
+          }
+        });
+
+        MUI.push(document.querySelector('#loadNifti'), loadNifti);
+        MUI.push(document.querySelector('#loadDemoData'), loadDemoData);
+
+      })
   </script>
 
   </body>
